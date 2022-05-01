@@ -1,0 +1,92 @@
+.fw100 {
+    font-weight: 100;
+}
+
+.fw200 {
+    font-weight: 200;
+}
+
+.fw300 {
+    font-weight: 300;
+}
+
+.fw400 {
+    font-weight: 400;
+}
+
+.fw500, b {
+    font-weight: 500;
+}
+
+.fw600, strong {
+    font-weight: 600;
+}
+
+.fw700 {
+    font-weight: 700;
+}
+
+.fw800 {
+    font-weight: 800;
+}
+
+.fw900 {
+    font-weight: 900;
+}
+
+.no-bold,
+.nob,
+.fwn {
+    font-weight: normal;
+}
+
+.em,
+.i,
+.fsi {
+    font-style: italic;
+}
+
+.no-em,
+.noi,
+.fsn {
+    font-style: normal;
+}
+
+/* TEXT-TRANSFORM */
+
+.uppercase, .ttu {
+    text-transform: uppercase;
+}
+
+.lowercase, .ttl {
+    text-transform: lowercase;
+}
+
+.capitalize, .ttc {
+    text-transform: capitalize;
+}
+
+.normal, .ttn {
+    text-transform: initial;
+}
+
+/* TEXT-DECORATION */
+
+.underline,
+.u,
+.subrayado,
+.tdu {
+    text-decoration: underline;
+}
+
+.through,
+.tachado,
+.tdt {
+    text-decoration: line-through;
+}
+
+.u-no,
+.deco-no,
+.tdn {
+    text-decoration: none;
+}

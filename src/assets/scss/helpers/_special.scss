@@ -1,0 +1,33 @@
+.ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.truncate {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+
+	&.t1 {
+		-webkit-line-clamp: 1;
+	}
+
+	&.t2 {
+		-webkit-line-clamp: 2;
+	}
+
+	&.t3 {
+		-webkit-line-clamp: 3;
+	}
+
+	&.t4 {
+		-webkit-line-clamp: 4;
+	}
+
+	&.t5 {
+		-webkit-line-clamp: 5;
+	}
+
+}

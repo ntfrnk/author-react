@@ -1,0 +1,29 @@
+@import '../../assets/scss/Colors';
+
+header {
+    background: $main;
+    padding: 20px 0;
+
+    .row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        a {
+            color: #FFF;
+            text-decoration: none;
+        }
+
+        nav {
+
+            a {
+                padding: 1rem 1rem;
+                transition: all 300ms ease-in-out;
+
+                &:hover {
+                    background: darken($main, 5%);
+                }
+            }
+        }
+    }
+}

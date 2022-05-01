@@ -1,0 +1,192 @@
+.border {
+    &.nb {
+        border: 0;
+    }
+
+    &.bor1 {
+        border-width: 1px;
+    }
+
+    &.bor2 {
+        border-width: 2px;
+    }
+
+    &.bor3 {
+        border-width: 3px;
+    }
+
+    &.bor4 {
+        border-width: 4px;
+    }
+
+    &.bor5 {
+        border-width: 5px;
+    }
+}
+
+.solid {
+    border-style: solid;
+}
+
+.dotted {
+    border-style: dotted;
+}
+
+.dashed {
+    border-style: dashed;
+}
+
+// Border radius
+
+.no-br,
+.br0 {
+    border-radius: 0;
+}
+
+.br1 {
+    border-radius: 1px;
+}
+
+.br2 {
+    border-radius: 2px;
+}
+
+.br3 {
+    border-radius: 3px;
+}
+
+.br4 {
+    border-radius: 4px;
+}
+
+.br5 {
+    border-radius: 5px;
+}
+
+// top left
+
+.brtl0,
+.brlt0 {
+    border-top-left-radius: 0;
+}
+
+.brtl1,
+.brlt1 {
+    border-top-left-radius: 1px;
+}
+
+.brtl2,
+.brlt2 {
+    border-top-left-radius: 2px;
+}
+
+.brtl3,
+.brlt3 {
+    border-top-left-radius: 3px;
+}
+
+.brtl4,
+.brlt4 {
+    border-top-left-radius: 4px;
+}
+
+.brtl5,
+.brlt5 {
+    border-top-left-radius: 5px;
+}
+
+// top right
+
+.brtr0,
+.brrt0 {
+    border-top-left-radius: 0;
+}
+
+.brtr1,
+.brrt1 {
+    border-top-left-radius: 1px;
+}
+
+.brtr2,
+.brrt2 {
+    border-top-left-radius: 2px;
+}
+
+.brtr3,
+.brrt3 {
+    border-top-left-radius: 3px;
+}
+
+.brtr4,
+.brrt4 {
+    border-top-left-radius: 4px;
+}
+
+.brtr5,
+.brrt5 {
+    border-top-left-radius: 5px;
+}
+
+// bottom left
+
+.brbl0,
+.brlb0 {
+    border-top-left-radius: 0;
+}
+
+.brbl1,
+.brlb1 {
+    border-top-left-radius: 1px;
+}
+
+.brbl2,
+.brlb2 {
+    border-top-left-radius: 2px;
+}
+
+.brbl3,
+.brlb3 {
+    border-top-left-radius: 3px;
+}
+
+.brbl4,
+.brlb4 {
+    border-top-left-radius: 4px;
+}
+
+.brbl5,
+.brlb5 {
+    border-top-left-radius: 5px;
+}
+
+// bottom right
+
+.brbr0,
+.brrb0 {
+    border-top-left-radius: 0;
+}
+
+.brbr1,
+.brrb1 {
+    border-top-left-radius: 1px;
+}
+
+.brbr2,
+.brrb2 {
+    border-top-left-radius: 2px;
+}
+
+.brbr3,
+.brrb3 {
+    border-top-left-radius: 3px;
+}
+
+.brbr4,
+.brrb4 {
+    border-top-left-radius: 4px;
+}
+
+.brbr5,
+.brrb5 {
+    border-top-left-radius: 5px;
+}
