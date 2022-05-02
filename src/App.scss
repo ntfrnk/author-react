@@ -1,9 +1,10 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Bitter:ital@0;1&display=swap');
 
+@import './assets/scss/Colors';
 @import './assets/scss/Grid';
 @import './assets/scss/General';
-@import './assets/scss/Colors';
+@import './assets/scss/Modules';
 @import './assets/scss/Buttons';
 @import './assets/scss/Helpers';
 
@@ -23,3 +24,5 @@
 @import './src/pages/Login/Login';
 @import './src/pages/Settings/Settings';
 @import './src/components/Heading/Heading';
+@import './src/components/Spinner/Spinner';
+@import './src/pages/Article/Article';

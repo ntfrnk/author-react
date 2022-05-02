@@ -1,6 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
+import { LoadingContext } from '../../services/context.service';
 import { api } from '../../services/api.service';
+import Spinner from '../../components/Spinner/Spinner';
 import Card from '../../components/Card/Card';
 import Heading from '../../components/Heading/Heading';
 import './Articles.scss';
@@ -12,6 +14,8 @@ const Articles = () => {
     const [articles, setArticles] = useState([]);
     const [project, setProject] = useState({});
 
+	const { loading, setLoading } = useContext(LoadingContext);
+
     const getProject = () => {
         api.get('project/' + project_id).then(
             response => {
@@ -21,9 +25,11 @@ const Articles = () => {
     }
 
 	const getArticles = () => {
+		setLoading(true);
 		api.get('articles/' + project_id).then(
 			response => {
 				setArticles(response.articles);
+				setLoading(false);
 			}
 		);
 	}
@@ -40,6 +46,7 @@ const Articles = () => {
                 back={{ text: 'Volver a proyectos', url: '/' }} 
                 new={{ text: 'Nueva nota', url: '/articles/new/' + project.id }} 
             />
+			{ loading ? <Spinner /> : null }
 			<div className="row contr">
 				{ articles.map(
 					article => (
