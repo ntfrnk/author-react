@@ -29,8 +29,8 @@ const Article = () => {
                 back={{ text: 'Volver al listado', url: '/' }} 
             />
             { loading ? <Spinner /> : null }
-            <div className="row contr">
-                <div className="col col-12" dangerouslySetInnerHTML={{ __html: article.content }}></div>
+            <div className="container">
+                <div dangerouslySetInnerHTML={{ __html: article.content }}></div>
             </div>
         </div>
     );
