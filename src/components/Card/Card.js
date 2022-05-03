@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import Icon from '../Icon/Icon';
 import './Card.scss';
 
-const Card = ({item, type}) => {
+const Card = ({item, type, deleteProject}) => {
 
     return (
         <div className="card-container">
@@ -21,10 +21,10 @@ const Card = ({item, type}) => {
                         </Link>
                     </div>
                     <div>
-                        <button className="btn small solid main mr5">
+                        <Link to={ type + '/edit/' + item.id } className="btn small solid main mr5">
                             <Icon name="edit" color="#FFF" size={16} style={{ paddingTop: '3px' }} />
-                        </button>
-                        <button className="btn small solid second">
+                        </Link>
+                        <button className="btn small solid second" onClick={ () => deleteProject(item.id) }>
                             <Icon name="remove" color="#FFF" size={16} style={{ paddingTop: '3px' }} />
                         </button>
                     </div>

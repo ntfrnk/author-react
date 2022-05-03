@@ -6,6 +6,7 @@
 @import './assets/scss/General';
 @import './assets/scss/Modules';
 @import './assets/scss/Buttons';
+@import './assets/scss/Forms';
 @import './assets/scss/Helpers';
 
 // Components
@@ -25,4 +26,4 @@
 @import './src/pages/Settings/Settings';
 @import './src/components/Heading/Heading';
 @import './src/components/Spinner/Spinner';
-@import './src/pages/Article/Article';
+@import './src/components/Alert/Alert';

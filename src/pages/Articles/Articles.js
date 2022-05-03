@@ -5,6 +5,7 @@ import { api } from '../../services/api.service';
 import Spinner from '../../components/Spinner/Spinner';
 import Card from '../../components/Card/Card';
 import Heading from '../../components/Heading/Heading';
+import Empty from '../../components/Empty/Empty';
 import './Articles.scss';
 
 const Articles = () => {
@@ -12,12 +13,12 @@ const Articles = () => {
     const { project_id } = useParams();
 
     const [articles, setArticles] = useState([]);
-    const [project, setProject] = useState({});
+    const [project, setProject] = useState({name: '...'});
 
 	const { loading, setLoading } = useContext(LoadingContext);
 
     const getProject = () => {
-        api.get('project/' + project_id).then(
+        api.get({endpoint: 'project/' + project_id}).then(
             response => {
                 setProject(response.project);
             }
@@ -26,7 +27,7 @@ const Articles = () => {
 
 	const getArticles = () => {
 		setLoading(true);
-		api.get('articles/' + project_id).then(
+		api.get({endpoint: 'articles/' + project_id}).then(
 			response => {
 				setArticles(response.articles);
 				setLoading(false);
@@ -46,16 +47,23 @@ const Articles = () => {
                 back={{ text: 'Volver a proyectos', url: '/' }} 
                 new={{ text: 'Nueva nota', url: '/articles/new/' + project.id }} 
             />
-			{ loading ? <Spinner /> : null }
-			<div className="row contr">
-				{ articles.map(
+			{ 
+			loading 
+			? <Spinner /> 
+			: <div className="row contr content">
+				{ 
+				articles.length > 0 ?
+				articles.map(
 					article => (
 						<div className="col col-3 stretch-parent" key={article.id}>
 							<Card item={article} type="article" />
 						</div>
 					)
-				) }
+				) :
+				<Empty text="Aún no hay notas cargadas en este proyecto" feedback="¿Qué te parece si empezamos con una?" link={'/articles/new/' + project.id} />
+				}
 			</div>
+			}
 		</div>
     );
 };

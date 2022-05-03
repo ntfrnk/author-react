@@ -5,7 +5,7 @@ import { api } from "../../services/api.service";
 import Heading from "../../components/Heading/Heading";
 import Spinner from "../../components/Spinner/Spinner";
 
-const Article = () => {
+const ArticleShow = () => {
 
     const { article_id } = useParams();
     const { loading, setLoading } = useContext(LoadingContext);
@@ -14,7 +14,7 @@ const Article = () => {
 
     useEffect(() => {
         setLoading(true);
-        api.get('article/' + article_id).then(
+        api.get({endpoint: 'article/' + article_id}).then(
             response => {
                 setArticle(response.article);
                 setLoading(false);
@@ -26,7 +26,7 @@ const Article = () => {
         <div className="App">
             <Heading 
                 title={ article.title } 
-                back={{ text: 'Volver al listado', url: '/' }} 
+                back={{ text: 'Volver al listado', url: '/articles/' + article.project_id }} 
             />
             { loading ? <Spinner /> : null }
             <div className="container">
@@ -36,4 +36,4 @@ const Article = () => {
     );
 }
 
-export default Article;
+export default ArticleShow;

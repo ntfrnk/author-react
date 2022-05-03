@@ -3,11 +3,20 @@ import { api_data } from "../secret";
 
 export const api = {
 
-    get: (endpoint) => {
+    setApiData: (data) => {
+        const newdata = {
+            ...api_data,
+            ...data
+        }
+        return newdata;
+    },
+
+    get: (connectData) => {
+        const apiData = api.setApiData(connectData);
         return new Promise((resolve, reject) => {
-            axios.get(api_data.url + endpoint, {
+            axios.get(apiData.url + apiData.endpoint, {
                 headers: {
-                    Authorization: api_data.token
+                    Authorization: apiData.token
                 }
             })
             .then(response => {
@@ -19,12 +28,12 @@ export const api = {
         });
     },
 
-    post: (endpoint, params = {}) => {
+    post: (connectData, params = {}) => {
+        const apiData = api.setApiData(connectData);
         return new Promise((resolve, reject) => {
-            axios.post(api_data.url + endpoint, {
-                params: params,
+            axios.post(apiData.url + apiData.endpoint, params, {
                 headers: {
-                    Authorization: api_data.token
+                    Authorization: apiData.token
                 }
             })
             .then(response => {
@@ -36,12 +45,12 @@ export const api = {
         });
     },
 
-    put: (endpoint, params = {}) => {
+    put: (connectData, params = {}) => {
+        const apiData = api.setApiData(connectData);
         return new Promise((resolve, reject) => {
-            axios.put(api_data.url + endpoint, {
-                params: params,
+            axios.put(apiData.url + apiData.endpoint, params, {
                 headers: {
-                    Authorization: api_data.token
+                    Authorization: apiData.token
                 }
             })
             .then(response => {
@@ -53,12 +62,12 @@ export const api = {
         });
     },
 
-    patch: (endpoint, params = {}) => {
+    patch: (connectData, params = {}) => {
+        const apiData = api.setApiData(connectData);
         return new Promise((resolve, reject) => {
-            axios.patch(api_data.url + endpoint, {
-                params: params,
+            axios.patch(apiData.url + apiData.endpoint, params, {
                 headers: {
-                    Authorization: api_data.token
+                    Authorization: apiData.token
                 }
             })
             .then(response => {
@@ -70,11 +79,12 @@ export const api = {
         });
     },
 
-    delete: (endpoint) => {
+    delete: (connectData) => {
+        const apiData = api.setApiData(connectData);
         return new Promise((resolve, reject) => {
-            axios.delete(api_data.url + endpoint, {
+            axios.delete(apiData.url + apiData.endpoint, {
                 headers: {
-                    Authorization: api_data.token
+                    Authorization: apiData.token
                 }
             })
             .then(response => {
