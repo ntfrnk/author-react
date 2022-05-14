@@ -9,11 +9,11 @@ import Heading from "../../components/Heading/Heading";
 import Spinner from "../../components/Spinner/Spinner";
 import Icon from "../../components/Icon/Icon";
 
-const ArticleNew = () => {
+const ArticleEdit = () => {
 
     const editorRef = useRef(null);
 	const navigate = useNavigate();
-    const { project_id } = useParams();
+    const { article_id } = useParams();
 
 	const { loading, setLoading } = useContext(LoadingContext);
 	const [ article, setArticle ] = useState({title: '', content: ''});
@@ -24,15 +24,11 @@ const ArticleNew = () => {
 			let article_params = {
 				...article,
 				content: editorRef.current.getContent(),
-				user_id: 3,
-				project_id: project_id
 			}
-			api.post({endpoint: 'article'}, article_params).then(
+			api.patch({endpoint: 'article/' + article_id}, article_params).then(
 				response => {
 					if(exit){
-						navigate('/articles/' + project_id, { replace: true });
-					} else {
-						navigate('/article/edit/' + response.data.id, { replace: true });
+						navigate('/articles/' + article.project_id, { replace: true });
 					}
 				},
 				error => {
@@ -43,6 +39,17 @@ const ArticleNew = () => {
 		}
 	}
 
+    const getArticle = () => {
+        setLoading(true);
+        api.get({endpoint: 'article/' + article_id}).then(
+            response => {
+                editorRef.current.setContent(response.data.content);
+				setArticle(response.data);
+                setLoading(false);
+            }
+        );
+    }
+
 	const setData = (event) => {
         setArticle({
             ...article,
@@ -51,20 +58,21 @@ const ArticleNew = () => {
     }
 
 	useEffect(() => {
-		setLoading(false);
-	});
+        getArticle();
+        setLoading(false);
+	}, []);
 
     return (
         <div className="App container">
             <Heading 
-                title="Nuevo escrito" 
-                back={{ text: 'Volver al listado', url: '/articles/' + project_id }} 
+                title="Editar escrito" 
+                back={{ text: 'Volver al listado', url: '/articles/' + article.project_id }} 
             />
             { loading ? <Spinner /> : 
             <div className="form content">
 				<div className="form-group">
 					<label>Título del escrito:</label>
-					<input type="text" name="title" onChange={setData} placeholder="Escribe el título para tu escrito" />
+					<input type="text" name="title" value={ article.title } onChange={setData} placeholder="Escribe el título para tu escrito" />
 					{ errors.title ? <span className="error">{ errors.title }</span> : null }
 				</div>
 				<div className="form-group">
@@ -101,4 +109,4 @@ const ArticleNew = () => {
     );
 }
 
-export default ArticleNew;
+export default ArticleEdit;

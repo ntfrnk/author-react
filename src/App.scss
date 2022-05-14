@@ -9,21 +9,25 @@
 @import './assets/scss/Forms';
 @import './assets/scss/Helpers';
 
-// Components
-@import './src/layout/Header/Header';
+// Layout
 @import './src/layout/Footer/Footer';
+@import './src/layout/Header/Header';
 @import './src/layout/Main/Main';
+
+// Components
+@import './src/components/Alert/Alert';
 @import './src/components/Card/Card';
 @import './src/components/CardNew/CardNew';
-@import './src/components/Icon/Icon';
-@import './src/components/Reader/Reader';
+@import './src/components/CardUser/CardUser';
 @import './src/components/Empty/Empty';
-@import './src/pages/Projects/Projects';
-@import './src/pages/Chapters/Chapters';
-@import './src/pages/Users/Users';
-@import './src/pages/Articles/Articles';
-@import './src/pages/Login/Login';
-@import './src/pages/Settings/Settings';
 @import './src/components/Heading/Heading';
+@import './src/components/Icon/Icon';
 @import './src/components/Spinner/Spinner';
-@import './src/components/Alert/Alert';
+
+// Pages
+@import './src/pages/Articles/Articles';
+@import './src/pages/Chapters/Chapters';
+@import './src/pages/Login/Login';
+@import './src/pages/Projects/Projects';
+@import './src/pages/Settings/Settings';
+@import './src/pages/Users/Users';

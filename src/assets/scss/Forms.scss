@@ -7,7 +7,7 @@
         margin-bottom: 1.2rem;
 
         label {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 600;
             margin-bottom: .5rem;
             display: block;
@@ -15,7 +15,6 @@
 
         input, textarea {
             width: 100%;
-            height: 2.5rem;
             padding: 0 .5rem;
             box-sizing: border-box;
 
@@ -25,13 +24,40 @@
         }
 
         input {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
+            height: 2.6rem;
+            border-radius: 5px;
+            border: solid 1px lighten($black, 75%);
+
+            &.super {
+                font-size: 1.2rem;
+                height: 3.0rem;
+            }
         }
 
         textarea {
             font-size: 1.1rem;
             line-height: 1.1rem;
             padding: .7rem .5rem;
+        }
+
+        span {
+
+            &.help-text {
+                display: block;
+                font-size: .9rem;
+                color: lighten($black, 50%);
+                margin-top: .3rem;
+                font-style: italic;
+            }
+
+            &.error {
+                display: block;
+                font-size: .8rem;
+                color: lighten($second, 20%);
+                margin-top: .3rem;
+                font-weight: 600;
+            }
         }
     }
 }

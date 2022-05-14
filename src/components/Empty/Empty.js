@@ -10,7 +10,9 @@ const Empty = ({ text, link, feedback }) => {
             </div>
             <div className="empty-title">
                 <div>{ text }</div>
-                <div><Link to={ link }>{ feedback }</Link></div>
+                <div className="pt5">
+                    <Link to={ link }>{ feedback }</Link>
+                </div>
             </div>
         </div>
     );

@@ -17,35 +17,40 @@ const ProjectEdit = () => {
 	const { project_id } = useParams();
 
 	const { loading, setLoading } = useContext(LoadingContext);
-	const [ project, setProject ] = useState({});
+	const [ project, setProject ] = useState({name: '', description: ''});
+	const [ errors, setErrors ] = useState({name: '', description: ''});
 
+	//
 	const getProject = () => {
 		setLoading(true);
 		api.get({endpoint: 'project/' + project_id}).then(
 			response => {
 				setProject({
-					title: response.project.title
+					name: response.data.name
 				});
-				editorRef.current.setContent(response.project.content);
+				editorRef.current.setContent(`${response.data.description}`);
 				setLoading(false);
 			}
 		);
 	}
 
-	const saveProject = (exit = false) => {
+	//
+	const updateProject = (exit = false) => {
 		if (editorRef.current) {
-			let proj = {
+			let project_params = {
 				...project,
 				description: editorRef.current.getContent(),
 				user_id: 3
 			}
-			api.post({endpoint: 'project'}, {json: JSON.stringify(proj)}).then(
+			api.patch({endpoint: 'project/' + project_id}, project_params).then(
 				response => {
 					if(exit){
 						navigate('/', { replace: true });
-					} else {
-						console.log('Guardado');
 					}
+				},
+				error => {
+					setErrors(error.response.data.errors);
+					setLoading(false);
 				}
 			);
 		}
@@ -65,12 +70,13 @@ const ProjectEdit = () => {
 
     return (
         <div className="App container">
-			<Heading title="Nuevo proyecto" back={{ text: 'Volver a proyectos', url: '/' }} />
-			{ loading ? <Spinner /> : null }
+			<Heading title="Editar proyecto" back={{ text: 'Volver a proyectos', url: '/' }} />
+			{ loading ? <Spinner /> : 
 			<div className="form content">
 				<div className="form-group">
 					<label>Nombre del proyecto:</label>
-					<input type="text" name="title" value={ project.title } onChange={setData} placeholder="Escribe el título del proyecto" />
+					<input type="text" name="name" value={ project.name } onChange={setData} placeholder="Escribe el título del proyecto" />
+					{ errors.name ? <span className="error">{ errors.name }</span> : null }
 				</div>
 				<div className="form-group">
 					<label>Descripción:</label>
@@ -92,15 +98,16 @@ const ProjectEdit = () => {
 					/>
 				</div>
 				<div className="form-group">
-					<button onClick={() => saveProject()} className="btn pill solid main mr10">
+					<button onClick={() => updateProject()} className="btn pill solid main mr10">
 						Guardar y continuar
 					</button>
-					<button onClick={() => saveProject(true)} className="btn pill solid main">
+					<button onClick={() => updateProject(true)} className="btn pill solid main">
 						Guardar y salir
 						<Icon name="right" size={16} color="#FFF" style={{ marginBottom: '-2px', marginLeft: '5px' }} />
 					</button>
 				</div>
 			</div>
+			}
 		</div>
     );
 }

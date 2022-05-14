@@ -16,7 +16,7 @@ const ArticleShow = () => {
         setLoading(true);
         api.get({endpoint: 'article/' + article_id}).then(
             response => {
-                setArticle(response.article);
+                setArticle(response.data);
                 setLoading(false);
             }
         );

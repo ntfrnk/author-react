@@ -4,8 +4,19 @@
     text-align: center;
     margin: 100px 0;
     color: lighten($black, 50%);
+    font-size: 1.1rem;
 
     .empty-icon {
         margin-bottom: 20px;
+    }
+
+    a {
+        color: $main;
+        text-decoration: none;
+        font-weight: 600;
+
+        &:hover {
+            text-decoration: underline;
+        }
     }
 }

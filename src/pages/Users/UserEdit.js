@@ -7,9 +7,9 @@ import Heading from '../../components/Heading/Heading';
 import Spinner from '../../components/Spinner/Spinner';
 import Icon from '../../components/Icon/Icon';
 
-import './Settings.scss';
+import './Users.scss';
 
-const Settings = () => {
+const UserEdit = () => {
 
 	const { user_id } = useParams();
 	const navigate = useNavigate();
@@ -99,4 +99,4 @@ const Settings = () => {
 	);
 }
 
-export default Settings;
+export default UserEdit;
