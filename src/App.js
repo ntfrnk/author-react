@@ -3,6 +3,7 @@ import LoadingProvider from './services/context.service';
 
 // Components
 import Header from './layout/Header/Header';
+import LoginChecker from './components/LoginChecker/LoginChecker';
 
 // Pages
 import Projects from './pages/Projects/Projects';
@@ -23,14 +24,16 @@ import Settings from './pages/Settings/Settings';
 import './App.scss';
 
 function App() {
+
 	return (
 		<LoadingProvider>
 			<BrowserRouter>
 				<Header />
+				<LoginChecker />
 				<div className="container">
 					<Routes>
-						<Route path="/login" element={<Login />} />
 						<Route path="/" element={<Projects />} />
+						<Route path="/login" element={<Login />} />
 						<Route path="/project/new" element={<ProjectNew />} />
 						<Route path="/project/edit/:project_id" element={<ProjectEdit />} />
 						<Route path="/articles/:project_id" element={<Articles />} />

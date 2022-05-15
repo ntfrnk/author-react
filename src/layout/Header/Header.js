@@ -1,7 +1,11 @@
 import { Link } from "react-router-dom";
+import LoginService from "../../services/login.service";
 import "./Header.scss";
 
 const Header = () => {
+
+	const userIsLogged = LoginService.userIsLogged();
+
 	return (
 		<header>
 			<div className="container">
@@ -11,6 +15,7 @@ const Header = () => {
 							Author <span className="f14">[ Book Manager ]</span>
 						</Link>
 					</div>
+					{ userIsLogged ?
 					<nav className="col col-9 ar">
 						<Link to="/">
 							<i className="fa fa-clipboard"></i>&nbsp;Proyectos
@@ -25,6 +30,7 @@ const Header = () => {
 							<i className="fa fa-sign-out-alt"></i>&nbsp;Salir
 						</Link>
 					</nav>
+					: null }
 				</div>
 			</div>
 		</header>
