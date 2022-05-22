@@ -16,7 +16,7 @@ export const api = {
         return new Promise((resolve, reject) => {
             axios.get(apiData.url + apiData.endpoint, {
                 headers: {
-                    Authorization: apiData.token
+                    Authorization: apiData.getToken()
                 }
             })
             .then(response => {
@@ -33,7 +33,7 @@ export const api = {
         return new Promise((resolve, reject) => {
             axios.post(apiData.url + apiData.endpoint, params, {
                 headers: {
-                    Authorization: apiData.token
+                    Authorization: apiData.getToken()
                 }
             })
             .then(response => {
@@ -50,7 +50,7 @@ export const api = {
         return new Promise((resolve, reject) => {
             axios.put(apiData.url + apiData.endpoint, params, {
                 headers: {
-                    Authorization: apiData.token
+                    Authorization: apiData.getToken()
                 }
             })
             .then(response => {
@@ -67,7 +67,7 @@ export const api = {
         return new Promise((resolve, reject) => {
             axios.patch(apiData.url + apiData.endpoint, params, {
                 headers: {
-                    Authorization: apiData.token
+                    Authorization: apiData.getToken()
                 }
             })
             .then(response => {
@@ -84,7 +84,7 @@ export const api = {
         return new Promise((resolve, reject) => {
             axios.delete(apiData.url + apiData.endpoint, {
                 headers: {
-                    Authorization: apiData.token
+                    Authorization: apiData.getToken()
                 }
             })
             .then(response => {

@@ -2,6 +2,7 @@ import { useState, useContext, useRef, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { LoadingContext } from "../../services/context.service";
 import { api } from "../../services/api.service";
+import { User } from '../../services/users.service';
 
 import { Editor } from '@tinymce/tinymce-react';
 
@@ -24,7 +25,7 @@ const ArticleNew = () => {
 			let article_params = {
 				...article,
 				content: editorRef.current.getContent(),
-				user_id: 3,
+				user_id: User.getId(),
 				project_id: project_id
 			}
 			api.post({endpoint: 'article'}, article_params).then(

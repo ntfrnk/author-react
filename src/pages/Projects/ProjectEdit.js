@@ -39,8 +39,7 @@ const ProjectEdit = () => {
 		if (editorRef.current) {
 			let project_params = {
 				...project,
-				description: editorRef.current.getContent(),
-				user_id: 3
+				description: editorRef.current.getContent()
 			}
 			api.patch({endpoint: 'project/' + project_id}, project_params).then(
 				response => {

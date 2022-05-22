@@ -1,8 +1,26 @@
 import { createContext, useState } from 'react';
 
+export const LoginContext = createContext();
 export const LoadingContext = createContext();
 
-const LoadingProvider = ({ children }) => {
+export const LoginProvider = ({ children }) => {
+    
+    const [login, setLogin] = useState(Boolean(localStorage.getItem('token')));
+
+    const logout = () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+    }
+    
+    return (
+        <LoginContext.Provider value={{ login, setLogin, logout }}>
+            { children }
+        </LoginContext.Provider>
+    );
+
+}
+
+export const LoadingProvider = ({ children }) => {
 
     const [loading, setLoading] = useState(true);
 
@@ -12,5 +30,3 @@ const LoadingProvider = ({ children }) => {
         </LoadingContext.Provider>
     );
 }
-
-export default LoadingProvider;

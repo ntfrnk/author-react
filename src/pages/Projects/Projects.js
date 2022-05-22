@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { api } from '../../services/api.service';
 import { LoadingContext } from '../../services/context.service';
 import Heading from '../../components/Heading/Heading';
@@ -15,6 +16,8 @@ const Projects = () => {
 	const [deleted, setDeleted] = useState(false);
 	const { loading, setLoading } = useContext(LoadingContext);
 
+	const navigate = useNavigate();
+
 	const getProjects = () => {
 		setLoading(true);
 		let options = {
@@ -22,8 +25,15 @@ const Projects = () => {
 		}
 		api.get({ endpoint: 'projects/3?params=' + JSON.stringify(options) }).then(
 			response => {
-				setProjects(response.data);
-				setLoading(false);
+				if(response.code === 200){
+					setProjects(response.data);
+					setLoading(false);
+				} else {
+					navigate('/login');
+				}
+			},
+			error => {
+				navigate('/login');
 			}
 		);
 	}

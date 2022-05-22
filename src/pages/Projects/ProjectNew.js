@@ -2,6 +2,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { LoadingContext } from "../../services/context.service";
 import { api } from "../../services/api.service";
+import { User } from "../../services/users.service";
 
 import Heading from "../../components/Heading/Heading";
 import Spinner from "../../components/Spinner/Spinner";
@@ -25,7 +26,7 @@ const ProjectNew = () => {
 			let project_params = {
 				...project,
 				description: editorRef.current.getContent(),
-				user_id: 3
+				user_id: User.getId()
 			}
 			api.post({endpoint: 'project'}, project_params).then(
 				response => {

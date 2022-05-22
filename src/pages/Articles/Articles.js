@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext } from 'react';
-import { useParams } from 'react-router-dom';
-import { LoadingContext } from '../../services/context.service';
+import { useParams, useNavigate } from 'react-router-dom';
+import { LoginContext, LoadingContext } from '../../services/context.service';
 import { api } from '../../services/api.service';
 
 import Spinner from '../../components/Spinner/Spinner';
@@ -22,6 +22,9 @@ const Articles = () => {
     const [project, setProject] = useState({name: '...'});
 
 	const { loading, setLoading } = useContext(LoadingContext);
+
+	const { navigate } = useNavigate();
+	const { login } = useContext(LoginContext);
 
     const getProject = () => {
         api.get({endpoint: 'project/' + project_id}).then(
@@ -80,8 +83,12 @@ const Articles = () => {
 	}
 
 	useEffect(() => {
-        getProject();
-		getArticles();
+		if(login){
+			getProject();
+			getArticles();
+		} else {
+			navigate('/login');
+		}
 	}, []);
 
     return (

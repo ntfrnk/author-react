@@ -1,10 +1,25 @@
-import { Link } from "react-router-dom";
-import LoginService from "../../services/login.service";
+import { useContext, useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { LoginContext } from "../../services/context.service";
 import "./Header.scss";
 
 const Header = () => {
 
-	const userIsLogged = LoginService.userIsLogged();
+	const { login, setLogin, logout } = useContext(LoginContext);
+
+	const doLogout = () => {
+		setLogin(false);
+		logout();
+	}
+
+	const location = useLocation().pathname;
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		if(!login && location !== "/login") {
+			navigate('/login');
+		}
+	}, [login]);
 
 	return (
 		<header>
@@ -15,7 +30,7 @@ const Header = () => {
 							Author <span className="f14">[ Book Manager ]</span>
 						</Link>
 					</div>
-					{ userIsLogged ?
+					{ login ?
 					<nav className="col col-9 ar">
 						<Link to="/">
 							<i className="fa fa-clipboard"></i>&nbsp;Proyectos
@@ -26,7 +41,7 @@ const Header = () => {
 						<Link to="/settings">
 							<i className="fa fa-user-cog"></i>&nbsp;Configurar
 						</Link>
-						<Link to="/logout">
+						<Link to="/login" onClick={ () => doLogout() }>
 							<i className="fa fa-sign-out-alt"></i>&nbsp;Salir
 						</Link>
 					</nav>
