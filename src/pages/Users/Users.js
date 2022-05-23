@@ -8,12 +8,14 @@ import CardUser from '../../components/CardUser/CardUser';
 import Empty from '../../components/Empty/Empty';
 import Alert from '../../components/Alert/Alert';
 
+import Swal from 'sweetalert2';
+
 import './Users.scss';
 
 const Users = () => {
 
-	const [users, setUsers] = useState([]);
-	const [deleted, setDeleted] = useState(false);
+	const [ users, setUsers ] = useState([]);
+	const [ deleted, setDeleted ] = useState(false);
 	const { loading, setLoading } = useContext(LoadingContext);
 
 	const getUsers = () => {
@@ -27,16 +29,36 @@ const Users = () => {
 	}
 
 	const deleteUser = (id) => {
-		setLoading(true);
-		api.delete({endpoint: 'user/' + id}).then(
-			response => {
-				getUsers();
-				setDeleted(true);
-				setTimeout(() => {
-					setDeleted(false);
-				}, 5000);
+
+		const MySwal = Swal.mixin({
+			customClass: {
+				confirmButton: 'btn second solid',
+				cancelButton: 'btn main outline'
+			},
+			buttonsStyling: true
+		});
+
+		MySwal.fire({
+			title: '¿Estás seguro?',
+			html: 'Al eliminar este usuario también se borrarán sus proyectos y escritos.',
+			confirmButtonText: 'Ok, eliminar igual.',
+			showCancelButton: true,
+			cancelButtonText: 'No, entonces no',
+		}).then((result) => {
+			if (result.isConfirmed) {
+				setLoading(true);
+				api.delete({endpoint: `user/${id}`}).then(
+					response => {
+						getUsers();
+						setDeleted(true);
+						setTimeout(() => {
+							setDeleted(false);
+						}, 5000);
+					}
+				);
 			}
-		);
+		});
+
 	}
 
 	useEffect(() => {

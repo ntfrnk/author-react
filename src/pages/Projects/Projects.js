@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { api } from '../../services/api.service';
+import { User } from '../../services/users.service';
 import { LoadingContext } from '../../services/context.service';
 import Heading from '../../components/Heading/Heading';
 import Spinner from '../../components/Spinner/Spinner';
@@ -23,7 +24,7 @@ const Projects = () => {
 		let options = {
 			'ordering': 'name,asc'
 		}
-		api.get({ endpoint: 'projects/3?params=' + JSON.stringify(options) }).then(
+		api.get({ endpoint: `projects/${User.getId()}?params=${JSON.stringify(options)}` }).then(
 			response => {
 				if(response.code === 200){
 					setProjects(response.data);
