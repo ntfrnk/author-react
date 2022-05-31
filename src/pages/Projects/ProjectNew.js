@@ -80,7 +80,9 @@ const ProjectNew = () => {
 							'insertdatetime', 'media', 'table', 'preview', 'wordcount'
 						],
 						toolbar: 'code | cut copy paste | bold italic underline | link anchor | bullist numlist blockquote | blocks | fullscreen removeformat',
-						content_style: 'body { font-family: Bitter; font-size: 16px }'
+						content_style: 'body { font-family: Bitter; font-size: 16px }',
+						skin: "oxide-dark",
+						content_css: "dark"
 						}}
 					/>
 				</div>

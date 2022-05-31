@@ -38,17 +38,19 @@ const Login = () => {
     }
 
     return (
-        <div className="App form w30 pt100">
-            <div className="form-group">
-                <label>Correo electrónico:</label>
-                <input type="text" name="email" placeholder="Tu correo electrónico" ref={email} />
-            </div>
-            <div className="form-group">
-                <label>Contraseña:</label>
-                <input type="password" name="password" placeholder="Tu contraseña" ref={password} />
-            </div>
-            <div className="form-group">
-                <button className="btn main solid" onClick={process}>Iniciar sesión</button>
+        <div className="App form w30">
+            <div className="box">
+                <div className="form-group">
+                    <label>Correo electrónico:</label>
+                    <input type="text" name="email" placeholder="Tu correo electrónico" ref={email} />
+                </div>
+                <div className="form-group">
+                    <label>Contraseña:</label>
+                    <input type="password" name="password" placeholder="Tu contraseña" ref={password} />
+                </div>
+                <div className="form-group">
+                    <button className="btn main solid" onClick={process}>Iniciar sesión</button>
+                </div>
             </div>
         </div>
     );

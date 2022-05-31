@@ -24,7 +24,7 @@ const Header = () => {
 	return (
 		<header>
 			<div className="container">
-				<div className="row">
+				<div className="row px15">
 					<div className="col col-3">
 						<Link to="/" className="f40 logo">
 							Author <span className="f14">[ Book Manager ]</span>
