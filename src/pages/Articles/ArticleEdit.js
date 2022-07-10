@@ -16,7 +16,7 @@ const ArticleEdit = () => {
     const { article_id } = useParams();
 
 	const { loading, setLoading } = useContext(LoadingContext);
-	const [ article, setArticle ] = useState({title: '', content: ''});
+	const [article, setArticle] = useState({ id: 0, title: '', content: '<p>Cargando texto...</p>'});
 	const [ errors, setErrors ] = useState({title: '', content: ''});
 
 	const saveArticle = (exit = false) => {
@@ -43,8 +43,9 @@ const ArticleEdit = () => {
         setLoading(true);
         api.get({endpoint: 'article/' + article_id}).then(
             response => {
-                editorRef.current.setContent(response.data.content);
-				setArticle(response.data);
+				const data = response.data;
+				setArticle({...article, ...data});
+				//editorRef.current.setContent(response.data.content);
                 setLoading(false);
             }
         );
@@ -80,7 +81,7 @@ const ArticleEdit = () => {
 					<Editor
 					 	apiKey='jh5k1buuga6eygwgzc5nrc6y6g6p60pk16njlqq12y8w3tt4'
 						onInit={(evt, editor) => editorRef.current = editor}
-						initialValue="<p></p>"
+						initialValue={article.content}
 						init={{
 						height: 500,
 						menubar: false,
@@ -90,7 +91,7 @@ const ArticleEdit = () => {
 							'insertdatetime', 'media', 'table', 'preview', 'wordcount'
 						],
 						toolbar: 'code | cut copy paste | bold italic underline | link anchor | bullist numlist blockquote | blocks | fullscreen removeformat',
-						content_style: 'body { font-family: Bitter; font-size: 16px }'
+							content_style: 'body { font-family: "Georgia"; font-size: 20px }'
 						}}
 					/>
 				</div>

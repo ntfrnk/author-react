@@ -39,7 +39,7 @@ const Login = () => {
 
     return (
         <div className="App form w30">
-            <div className="box">
+            <div className="box shadow">
                 <div className="form-group">
                     <label>Correo electrónico:</label>
                     <input type="text" name="email" placeholder="Tu correo electrónico" ref={email} />

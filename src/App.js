@@ -25,18 +25,16 @@ import './App.scss';
 function App() {
 
 	if(window.location.pathname !== '/login') {
-		setInterval(() => {
-			LoginService.checkToken().then(
-				response => {
-					if(response.code !== 200) {
-						LoginService.logout();
-					}
-				},
-				error => {
+		LoginService.checkToken().then(
+			response => {
+				if (response.code !== 200) {
 					LoginService.logout();
 				}
-			);
-		}, 300000);
+			},
+			error => {
+				LoginService.logout();
+			}
+		);
 	}
 
 	return (

@@ -17,7 +17,7 @@ const ProjectEdit = () => {
 	const { project_id } = useParams();
 
 	const { loading, setLoading } = useContext(LoadingContext);
-	const [ project, setProject ] = useState({name: '', description: ''});
+	const [project, setProject] = useState({ name: '', description: '<p>Cargando descripción...</p>'});
 	const [ errors, setErrors ] = useState({name: '', description: ''});
 
 	//
@@ -25,10 +25,12 @@ const ProjectEdit = () => {
 		setLoading(true);
 		api.get({endpoint: 'project/' + project_id}).then(
 			response => {
+				let data = response.data;
 				setProject({
-					name: response.data.name
+					...project,
+					...data
 				});
-				editorRef.current.setContent(`${response.data.description}`);
+				project.description = project.description === '<p>Cargando descripción...</p>' ? '' : project.description;
 				setLoading(false);
 			}
 		);
@@ -82,7 +84,7 @@ const ProjectEdit = () => {
 					<Editor
 					 	apiKey='jh5k1buuga6eygwgzc5nrc6y6g6p60pk16njlqq12y8w3tt4'
 						onInit={(evt, editor) => editorRef.current = editor}
-						initialValue="<p></p>"
+						initialValue={project.description}
 						init={{
 						height: 500,
 						menubar: false,
@@ -92,7 +94,7 @@ const ProjectEdit = () => {
 							'insertdatetime', 'media', 'table', 'preview', 'wordcount'
 						],
 						toolbar: 'code | cut copy paste | bold italic underline | link anchor | bullist numlist blockquote | blocks | fullscreen removeformat',
-						content_style: 'body { font-family: Bitter; font-size: 16px }'
+						content_style: 'body { font-family: Georgia; font-size: 20px }'
 						}}
 					/>
 				</div>

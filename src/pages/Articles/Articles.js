@@ -18,6 +18,7 @@ const Articles = () => {
     const { project_id } = useParams();
 
     const [articles, setArticles] = useState([]);
+    const [conection, setConection] = useState(true);
 	const [deleted, setDeleted] = useState(false);
     const [project, setProject] = useState({name: '...'});
 

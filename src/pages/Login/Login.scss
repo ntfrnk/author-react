@@ -5,4 +5,8 @@
     margin-top: 100px;
     background: rgba($white, 90%);
     border-radius: 5px;
+
+    &.shadow {
+        box-shadow: 0px 3px 10px 2px rgb(0 0 0 / 10%);
+    }
 }
