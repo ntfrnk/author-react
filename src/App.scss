@@ -2,11 +2,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Bitter:ital@0;1&display=swap');
 
 @import './assets/scss/Colors';
+@import './assets/scss/Background';
 @import './assets/scss/Grid';
 @import './assets/scss/General';
 @import './assets/scss/Modules';
 @import './assets/scss/Buttons';
 @import './assets/scss/Forms';
+@import './assets/scss/Texting';
 @import './assets/scss/Helpers';
 
 // Layout
@@ -26,7 +28,6 @@
 
 // Pages
 @import './src/pages/Articles/Articles';
-@import './src/pages/Login/Login';
 @import './src/pages/Projects/Projects';
 @import './src/pages/Settings/Settings';
 @import './src/pages/Users/Users';

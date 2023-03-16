@@ -2,6 +2,7 @@ import { useEffect, useState, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { LoginContext, LoadingContext } from '../../services/context.service';
 import { api } from '../../services/api.service';
+import { setEndpoint } from '../../services/endpoints';
 
 import Spinner from '../../components/Spinner/Spinner';
 import Card from '../../components/Card/Card';
@@ -18,20 +19,23 @@ const Articles = () => {
     const { project_id } = useParams();
 
     const [articles, setArticles] = useState([]);
-    const [conection, setConection] = useState(true);
 	const [deleted, setDeleted] = useState(false);
     const [project, setProject] = useState({name: '...'});
 
 	const { loading, setLoading } = useContext(LoadingContext);
 
-	const { navigate } = useNavigate();
+	const navigate = useNavigate();
 	const { login } = useContext(LoginContext);
 
     const getProject = () => {
-        api.get({endpoint: 'project/' + project_id}).then(
+		api.get({ endpoint: setEndpoint('project', 'show', project_id) }).then(
             response => {
                 setProject(response.data);
-            }
+			},
+			error => {
+				navigate('/login?reason=expired');
+				setLoading(false);
+			}
         );
     }
 
@@ -42,9 +46,13 @@ const Articles = () => {
 
 	const getArticles = () => {
 		setLoading(true);
-		api.get({endpoint: 'articles/' + project_id + '?params=' + JSON.stringify(options)}).then(
-			response => {
-				setArticles(response.data);
+		api.get({ endpoint: setEndpoint('article', 'index', project_id, options) }).then(
+			res => {
+				setArticles(res.data);
+				setLoading(false);
+			},
+			error => {
+				navigate('/login?reason=expired');
 				setLoading(false);
 			}
 		);

@@ -14,17 +14,21 @@ export const api = {
     get: (connectData) => {
         const apiData = api.setApiData(connectData);
         return new Promise((resolve, reject) => {
-            axios.get(apiData.url + apiData.endpoint, {
-                headers: {
-                    Authorization: apiData.getToken()
-                }
-            })
-            .then(response => {
-                resolve(response.data);
-            })
-            .catch(error => {
-                reject(error);
-            });
+            try {
+                axios.get(apiData.url + apiData.endpoint, {
+                    headers: {
+                        Authorization: apiData.getToken()
+                    }
+                })
+                .then(response => {
+                    resolve(response.data);
+                })
+                .catch(() => {
+                    reject({status: 401});
+                });
+            } catch (error) {
+                reject({ status: 401 });
+            }
         });
     },
 
@@ -40,6 +44,9 @@ export const api = {
                 resolve(response.data);
             })
             .catch(error => {
+                if(error.response.code === 401){
+                    reject({status: 401})
+                }
                 reject(error);
             });
         });
@@ -57,6 +64,9 @@ export const api = {
                 resolve(response.data);
             })
             .catch(error => {
+                if (error.response.code === 401) {
+                    reject({ status: 401 })
+                }
                 reject(error);
             });
         });

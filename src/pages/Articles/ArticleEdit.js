@@ -83,7 +83,7 @@ const ArticleEdit = () => {
 						onInit={(evt, editor) => editorRef.current = editor}
 						initialValue={article.content}
 						init={{
-						height: 500,
+						height: 600,
 						menubar: false,
 						plugins: [
 							'advlist', 'autolink', 'lists', 'link', 'image', 'charmap',

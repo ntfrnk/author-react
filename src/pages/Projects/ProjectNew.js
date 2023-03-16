@@ -2,6 +2,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { LoadingContext } from "../../services/context.service";
 import { api } from "../../services/api.service";
+import { setEndpoint } from '../../services/endpoints';
 import { User } from "../../services/users.service";
 
 import Heading from "../../components/Heading/Heading";
@@ -28,7 +29,7 @@ const ProjectNew = () => {
 				description: editorRef.current.getContent(),
 				user_id: User.getId()
 			}
-			api.post({endpoint: 'project'}, project_params).then(
+			api.post({ endpoint: setEndpoint('project', 'store')}, project_params).then(
 				response => {
 					if(exit){
 						navigate('/', { replace: true });
@@ -81,8 +82,8 @@ const ProjectNew = () => {
 						],
 						toolbar: 'code | cut copy paste | bold italic underline | link anchor | bullist numlist blockquote | blocks | fullscreen removeformat',
 						content_style: 'body { font-family: Bitter; font-size: 16px }',
-						skin: "oxide-dark",
-						content_css: "dark"
+						/*skin: "oxide-dark",
+						content_css: "dark"*/
 						}}
 					/>
 				</div>

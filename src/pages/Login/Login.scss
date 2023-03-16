@@ -1,12 +1,47 @@
 @import '../../assets/scss/Colors.scss';
 
-.box {
-    padding: 30px 30px 20px;
-    margin-top: 100px;
-    background: rgba($white, 90%);
-    border-radius: 5px;
+.login-container {
+    display: flex;
+    align-items: stretch;
+    height: 90%;
 
-    &.shadow {
-        box-shadow: 0px 3px 10px 2px rgb(0 0 0 / 10%);
+    .form {
+        
+        &.login {
+            padding-top: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-basis: 100vw;
+        }
+
+        .box {
+            padding: 40px 40px 30px;
+            background: rgba($white, 10%);
+            border: solid 1px rgba($white, 20%);
+            backdrop-filter: blur(10px);
+            border-radius: 5px;
+
+            &.shadow {
+                box-shadow: 0px 3px 10px 2px rgb(0 0 0 / 10%);
+            }
+
+            label {
+                color: $white;
+            }
+
+            input {
+                background: transparent !important;
+            }
+
+            .error {
+                background: lighten($danger, 65%);
+                border: solid 1px $danger;
+                color: $danger;
+                padding: .6rem .8rem;
+                border-radius: 3px;
+                font-size: .9rem;
+            }
+        }
     }
 }

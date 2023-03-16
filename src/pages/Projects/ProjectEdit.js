@@ -2,6 +2,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from 'react-router-dom';
 import { LoadingContext } from "../../services/context.service";
 import { api } from "../../services/api.service";
+import { setEndpoint } from '../../services/endpoints';
 
 import Heading from "../../components/Heading/Heading";
 import Spinner from "../../components/Spinner/Spinner";
@@ -23,14 +24,20 @@ const ProjectEdit = () => {
 	//
 	const getProject = () => {
 		setLoading(true);
-		api.get({endpoint: 'project/' + project_id}).then(
-			response => {
-				let data = response.data;
-				setProject({
-					...project,
-					...data
-				});
-				project.description = project.description === '<p>Cargando descripción...</p>' ? '' : project.description;
+		api.get({ endpoint: setEndpoint('project', 'show', project_id) }).then(
+			res => {
+				if (res.code === 200) {
+					let data = res.data;
+					setProject({
+						...project,
+						...data
+					});
+					project.description = project.description === '<p>Cargando descripción...</p>' ? '' : project.description;
+					setLoading(false);
+				}
+			},
+			error => {
+				navigate('/login?reason=expired');
 				setLoading(false);
 			}
 		);
@@ -43,13 +50,16 @@ const ProjectEdit = () => {
 				...project,
 				description: editorRef.current.getContent()
 			}
-			api.patch({endpoint: 'project/' + project_id}, project_params).then(
+			api.put({ endpoint: setEndpoint('project', 'update', project_id) }, project_params).then(
 				response => {
 					if(exit){
 						navigate('/', { replace: true });
 					}
 				},
 				error => {
+					if (error.status === 401){
+						navigate('/login?reason=expired');
+					}
 					setErrors(error.response.data.errors);
 					setLoading(false);
 				}
@@ -76,15 +86,15 @@ const ProjectEdit = () => {
 			<div className="form content">
 				<div className="form-group">
 					<label>Nombre del proyecto:</label>
-					<input type="text" name="name" value={ project.name } onChange={setData} placeholder="Escribe el título del proyecto" />
-					{ errors.name ? <span className="error">{ errors.name }</span> : null }
+					<input type="text" name="name" value={ project?.name } onChange={setData} placeholder="Escribe el título del proyecto" />
+					{ errors.name ? <span className="error">{ errors?.name }</span> : null }
 				</div>
 				<div className="form-group">
 					<label>Descripción:</label>
 					<Editor
 					 	apiKey='jh5k1buuga6eygwgzc5nrc6y6g6p60pk16njlqq12y8w3tt4'
 						onInit={(evt, editor) => editorRef.current = editor}
-						initialValue={project.description}
+						initialValue={project?.description}
 						init={{
 						height: 500,
 						menubar: false,

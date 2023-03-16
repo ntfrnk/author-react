@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { api } from '../../services/api.service';
+import { setEndpoint } from '../../services/endpoints';
 import { User } from '../../services/users.service';
 import { LoadingContext } from '../../services/context.service';
 import Heading from '../../components/Heading/Heading';
@@ -14,6 +15,7 @@ import Swal from 'sweetalert2';
 const Projects = () => {
 
 	const [projects, setProjects] = useState([]);
+	const [total, setTotal] = useState(0);
 	const [deleted, setDeleted] = useState(false);
 	const { loading, setLoading } = useContext(LoadingContext);
 
@@ -22,19 +24,19 @@ const Projects = () => {
 	const getProjects = () => {
 		setLoading(true);
 		let options = {
-			'ordering': 'name,asc'
+			ordering: 'name,asc'
 		}
-		api.get({ endpoint: `projects/${User.getId()}?params=${JSON.stringify(options)}` }).then(
-			response => {
-				if(response.code === 200){
-					setProjects(response.data);
+		api.get({ endpoint: setEndpoint('project', 'index', User.getId(), options) }).then(
+			res => {
+				if(res.code === 200){
+					setProjects(res.data);
+					setTotal(res.data.length);
 					setLoading(false);
-				} else {
-					navigate('/login');
 				}
 			},
 			error => {
-				navigate('/login');
+				navigate('/login?reason=expired');
+				setLoading(false);
 			}
 		);
 	}
@@ -58,7 +60,7 @@ const Projects = () => {
 		}).then((result) => {
 			if (result.isConfirmed) {
 				setLoading(true);
-				api.delete({ endpoint: 'project/' + id }).then(
+				api.delete({ endpoint: setEndpoint('project', 'destroy', id) }).then(
 					response => {
 						getProjects();
 						setDeleted(true);
@@ -78,15 +80,20 @@ const Projects = () => {
 			<Heading title="Mis proyectos literarios" new={{ text: 'Nuevo proyecto', url: '/project/new' }} />
 			{deleted ? <Alert text="El proyecto fue eliminado correctamente." type="success" callback={setDeleted} /> : ''}
 			{loading ? <Spinner /> : null}
-			{!loading ? <div className="row contr content">
-				{projects.map(
-					project => (
-						<div className="col col-3 stretch-parent" key={project.id}>
-							<Card item={project} type="project" deleteItem={deleteProject} />
-						</div>
+			{total != 0 ? <div className="row contr content">
+				{ projects.map(
+						project => (
+							<div className="col col-3 stretch-parent" key={project.id}>
+								<Card item={project} type="project" deleteItem={deleteProject} />
+							</div>
+						)
 					)
-				)}
-			</div> : null}
+				}
+			</div> : (
+				<div className="py100 f18 em ac text-muted">
+					Aún no hay proyectos creados
+				</div>
+			)}
 		</div>
 	);
 };
