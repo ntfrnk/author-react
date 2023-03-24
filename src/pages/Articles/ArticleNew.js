@@ -9,26 +9,28 @@ import { Editor } from '@tinymce/tinymce-react';
 import Heading from "../../components/Heading/Heading";
 import Spinner from "../../components/Spinner/Spinner";
 import Icon from "../../components/Icon/Icon";
+import { setEndpoint } from "../../services/endpoints";
 
 const ArticleNew = () => {
 
     const editorRef = useRef(null);
+    const titleRef = useRef(null);
 	const navigate = useNavigate();
     const { project_id } = useParams();
 
 	const { loading, setLoading } = useContext(LoadingContext);
-	const [ article, setArticle ] = useState({title: '', content: ''});
 	const [ errors, setErrors ] = useState({title: '', content: ''});
 
 	const saveArticle = (exit = false) => {
 		if (editorRef.current) {
 			let article_params = {
-				...article,
+				title: titleRef.current.value,
 				content: editorRef.current.getContent(),
 				user_id: User.getId(),
 				project_id: project_id
 			}
-			api.post({endpoint: 'article'}, article_params).then(
+
+			api.post({endpoint: setEndpoint('article', 'store')}, article_params).then(
 				response => {
 					if(exit){
 						navigate('/articles/' + project_id, { replace: true });
@@ -37,19 +39,14 @@ const ArticleNew = () => {
 					}
 				},
 				error => {
-					setErrors(error.response.data.errors);
+					if(error.status === 401){
+						navigate('/login?reason=expired');
+					}
 					setLoading(false);
 				}
 			);
 		}
 	}
-
-	const setData = (event) => {
-        setArticle({
-            ...article,
-            [event.target.name] : event.target.value
-        });
-    }
 
 	useEffect(() => {
 		setLoading(false);
@@ -65,7 +62,7 @@ const ArticleNew = () => {
             <div className="form content">
 				<div className="form-group">
 					<label>Título del escrito:</label>
-					<input type="text" name="title" onChange={setData} placeholder="Escribe el título para tu escrito" />
+					<input type="text" name="title" ref={titleRef} placeholder="Escribe el título para tu escrito" />
 					{ errors.title ? <span className="error">{ errors.title }</span> : null }
 				</div>
 				<div className="form-group">

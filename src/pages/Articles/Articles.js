@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { LoginContext, LoadingContext } from '../../services/context.service';
+import { LoadingContext } from '../../services/context.service';
 import { api } from '../../services/api.service';
 import { setEndpoint } from '../../services/endpoints';
 
@@ -25,7 +25,6 @@ const Articles = () => {
 	const { loading, setLoading } = useContext(LoadingContext);
 
 	const navigate = useNavigate();
-	const { login } = useContext(LoginContext);
 
     const getProject = () => {
 		api.get({ endpoint: setEndpoint('project', 'show', project_id) }).then(
@@ -33,7 +32,9 @@ const Articles = () => {
                 setProject(response.data);
 			},
 			error => {
-				navigate('/login?reason=expired');
+				if(error.status === 401){
+					navigate('/login?reason=expired');
+				}
 				setLoading(false);
 			}
         );
@@ -52,7 +53,9 @@ const Articles = () => {
 				setLoading(false);
 			},
 			error => {
-				navigate('/login?reason=expired');
+				if(error.status === 401){
+					navigate('/login?reason=expired');
+				}
 				setLoading(false);
 			}
 		);
@@ -77,13 +80,19 @@ const Articles = () => {
 		}).then((result) => {
 			if (result.isConfirmed) {
 				setLoading(true);
-				api.delete({endpoint: 'article/' + id}).then(
+				api.delete({endpoint: setEndpoint('article', 'destroy', id)}).then(
 					response => {
 						getArticles();
 						setDeleted(true);
 						setTimeout(() => {
 							setDeleted(false);
 						}, 5000);
+					},
+					error => {
+						if(error.status === 401){
+							navigate('/login?reason=expired');
+						}
+						setLoading(false);
 					}
 				);
 			}
@@ -92,12 +101,8 @@ const Articles = () => {
 	}
 
 	useEffect(() => {
-		if(login){
-			getProject();
-			getArticles();
-		} else {
-			navigate('/login');
-		}
+		getProject();
+		getArticles();
 	}, []);
 
     return (

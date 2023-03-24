@@ -12,6 +12,7 @@ export const api = {
     },
 
     get: (connectData) => {
+        console.clear();
         const apiData = api.setApiData(connectData);
         return new Promise((resolve, reject) => {
             try {
@@ -23,8 +24,8 @@ export const api = {
                 .then(response => {
                     resolve(response.data);
                 })
-                .catch(() => {
-                    reject({status: 401});
+                .catch(error => {
+                    reject({status: error.response.status});
                 });
             } catch (error) {
                 reject({ status: 401 });
@@ -33,76 +34,90 @@ export const api = {
     },
 
     post: (connectData, params = {}) => {
+        console.clear();
         const apiData = api.setApiData(connectData);
         return new Promise((resolve, reject) => {
-            axios.post(apiData.url + apiData.endpoint, params, {
-                headers: {
-                    Authorization: apiData.getToken()
-                }
-            })
-            .then(response => {
-                resolve(response.data);
-            })
-            .catch(error => {
-                if(error.response.code === 401){
-                    reject({status: 401})
-                }
-                reject(error);
-            });
+            try {
+                axios.post(apiData.url + apiData.endpoint, params, {
+                    headers: {
+                        Authorization: apiData.getToken()
+                    }
+                })
+                .then(response => {
+                    resolve(response.data);
+                })
+                .catch(error => {
+                    reject({status: error.response.status});
+                });
+            } catch (error) {
+                reject({status: 401});
+            };
         });
     },
 
     put: (connectData, params = {}) => {
+        console.clear();
         const apiData = api.setApiData(connectData);
         return new Promise((resolve, reject) => {
-            axios.put(apiData.url + apiData.endpoint, params, {
-                headers: {
-                    Authorization: apiData.getToken()
-                }
-            })
-            .then(response => {
-                resolve(response.data);
-            })
-            .catch(error => {
-                if (error.response.code === 401) {
-                    reject({ status: 401 })
-                }
-                reject(error);
-            });
+            try {
+                axios.put(apiData.url + apiData.endpoint, params, {
+                    headers: {
+                        Authorization: apiData.getToken()
+                    }
+                })
+                .then(response => {
+                    resolve(response.data);
+                })
+                .catch(error => {
+                    reject({status: error.response.status});
+                });
+            } catch (error) {
+                reject({ status: 401 });
+            }
         });
     },
 
     patch: (connectData, params = {}) => {
+        console.clear();
         const apiData = api.setApiData(connectData);
         return new Promise((resolve, reject) => {
-            axios.patch(apiData.url + apiData.endpoint, params, {
-                headers: {
-                    Authorization: apiData.getToken()
-                }
-            })
-            .then(response => {
-                resolve(response.data);
-            })
-            .catch(error => {
-                reject(error);
-            });
+            try {
+                axios.patch(apiData.url + apiData.endpoint, params, {
+                    headers: {
+                        Authorization: apiData.getToken()
+                    }
+                })
+                .then(response => {
+                    resolve(response.data);
+                })
+                .catch(error => {
+                    reject({status: error.response.status});
+                });
+            } catch (error) {
+                reject({ status: 401 });
+            }
         });
     },
 
     delete: (connectData) => {
+        console.clear();
         const apiData = api.setApiData(connectData);
         return new Promise((resolve, reject) => {
-            axios.delete(apiData.url + apiData.endpoint, {
-                headers: {
-                    Authorization: apiData.getToken()
-                }
-            })
-            .then(response => {
-                resolve(response.data);
-            })
-            .catch(error => {
-                reject(error);
-            });
+            try {
+                axios.delete(apiData.url + apiData.endpoint, {
+                    headers: {
+                        Authorization: apiData.getToken()
+                    }
+                })
+                .then(response => {
+                    resolve(response.data);
+                })
+                .catch(error => {
+                    reject({status: error.response.status});
+                });
+            } catch (error) {
+                reject({ status: 401 });
+            }
         });
     }
 

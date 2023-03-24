@@ -49,12 +49,14 @@
 
         &.main {
             color: $main;
-            border-color: $main;
+            border: solid 1px $main;
+            background: transparent;
         }
 
         &.second {
             color: $second;
-            border-color: $second;
+            border: solid 1px $second;
+            background: transparent;
         }
     }
 
@@ -77,6 +79,20 @@
             &:hover {
                 background: $second-dark;
             }
+        }
+    }
+
+    &.link {
+        background: $white;
+
+        &.main {
+            color: $main;
+            background: transparent;
+        }
+
+        &.second {
+            color: $second;
+            background: transparent;
         }
     }
 

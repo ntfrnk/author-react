@@ -6,13 +6,15 @@ const Card = ({item, type, deleteItem}) => {
 
     return (
         <div className="card-container">
-            <div className="card">
+            <div className="card relative">
                 <div className="card-header">
                     <h3 className="truncate t2" title={ item.name }>
                         { type === 'project' ? item.name : item.title }
                         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
                     </h3>
-                    { type !== 'project' ? <div>Palabras: {item.words}</div> : null }
+                </div>
+                <div className="absolute b25 l70 f13">
+                    { type !== 'project' ? `W: ${item.words} - CH: ${item.chars}` : null }
                 </div>
                 <div className="card-buttons">
                     <div>

@@ -38,7 +38,9 @@ const ProjectNew = () => {
 					}
 				},
 				error => {
-					setErrors(error.response.data.errors);
+					if(error.status === 401){
+						navigate('/login?reason=expired');
+					}
 					setLoading(false);
 				}
 			);
@@ -46,6 +48,7 @@ const ProjectNew = () => {
 	}
 
 	const setData = (event) => {
+		console.log(event.target);
         setProject({
             ...project,
             [event.target.name] : event.target.value

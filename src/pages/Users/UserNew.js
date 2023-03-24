@@ -8,6 +8,7 @@ import Spinner from '../../components/Spinner/Spinner';
 import Icon from '../../components/Icon/Icon';
 
 import './Users.scss';
+import setEndpoint from '../../services/endpoints';
 
 const UserNew = () => {
 
@@ -19,13 +20,15 @@ const UserNew = () => {
 
 	const saveUser = () => {
 		setLoading(true);
-		api.post({ endpoint: 'user' }, user).then(
+		api.post({ endpoint: setEndpoint('user', 'store') }, user).then(
 			response => {
 				setLoading(false);
 				navigate('/users', { replace: true });
 			},
 			error => {
-				setErrors(error.response.data.errors);
+				if(error.status === 401){
+					navigate('/login?reason=expired');
+				}
 				setLoading(false);
 			}
 		);

@@ -23,7 +23,6 @@ const Login = () => {
             password: passwordValue
         }).then(
             response => {
-                console.log(response);
                 if(response.code === 200){
                     let user = {
                         id: response.data.id,

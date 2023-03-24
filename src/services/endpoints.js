@@ -24,7 +24,7 @@ const endpoints = {
     article: {
         index: 'articles/{id}',
         show: 'articles/show/{id}',
-        store: 'articles/',
+        store: 'articles',
         update: 'articles/{id}',
         destroy: 'articles/{id}'
     }

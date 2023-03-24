@@ -1,6 +1,8 @@
 import { useContext, useState, useEffect } from 'react';
 import { LoadingContext } from '../../services/context.service';
 import { api } from '../../services/api.service';
+import { setEndpoint } from '../../services/endpoints';
+import { useNavigate } from 'react-router-dom';
 
 import Heading from '../../components/Heading/Heading';
 import Spinner from '../../components/Spinner/Spinner';
@@ -14,15 +16,22 @@ import './Users.scss';
 
 const Users = () => {
 
+	const navigate = useNavigate();
 	const [ users, setUsers ] = useState([]);
 	const [ deleted, setDeleted ] = useState(false);
 	const { loading, setLoading } = useContext(LoadingContext);
 
 	const getUsers = () => {
 		setLoading(true);
-		api.get({endpoint: 'users'}).then(
+		api.get({endpoint: setEndpoint('user', 'index')}).then(
 			response => {
 				setUsers(response.data);
+				setLoading(false);
+			},
+			error => {
+				if(error.status === 401){
+					navigate('/login?reason=expired');
+				}
 				setLoading(false);
 			}
 		);
@@ -47,13 +56,19 @@ const Users = () => {
 		}).then((result) => {
 			if (result.isConfirmed) {
 				setLoading(true);
-				api.delete({endpoint: `user/${id}`}).then(
+				api.delete({ endpoint: setEndpoint('user', 'destroy', id) }).then(
 					response => {
 						getUsers();
 						setDeleted(true);
 						setTimeout(() => {
 							setDeleted(false);
 						}, 5000);
+					},
+					error => {
+						if(error.status === 401){
+							navigate('/login?reason=expired');
+						}
+						setLoading(false);
 					}
 				);
 			}

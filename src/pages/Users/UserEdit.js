@@ -8,6 +8,7 @@ import Spinner from '../../components/Spinner/Spinner';
 import Icon from '../../components/Icon/Icon';
 
 import './Users.scss';
+import setEndpoint from '../../services/endpoints';
 
 const UserEdit = () => {
 
@@ -20,9 +21,15 @@ const UserEdit = () => {
 
 	const getUser = () => {
 		setLoading(true);
-		api.get({ endpoint: 'user/' + user_id }).then(
+		api.get({ endpoint: setEndpoint('user', 'show', user_id) }).then(
 			response => {
 				setUser(response.data);
+				setLoading(false);
+			},
+			error => {
+				if(error.status === 401){
+					navigate('/login?reason=expired');
+				}
 				setLoading(false);
 			}
 		);
@@ -30,13 +37,15 @@ const UserEdit = () => {
 
 	const saveUser = () => {
 		setLoading(true);
-		api.patch({ endpoint: 'user/' + user_id }, user ).then(
+		api.put({ endpoint: setEndpoint('user', 'update', user_id) }, user ).then(
 			response => {
 				setLoading(false);
 				navigate('/users', { replace: true });
-			}, 
+			},
 			error => {
-				setErrors(error.response.data.errors);
+				if(error.status === 401){
+					navigate('/login?reason=expired');
+				}
 				setLoading(false);
 			}
 		);

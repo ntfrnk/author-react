@@ -37,7 +37,9 @@ const ProjectEdit = () => {
 				}
 			},
 			error => {
-				navigate('/login?reason=expired');
+				if(error.status === 401){
+					navigate('/login?reason=expired');
+				}
 				setLoading(false);
 			}
 		);
@@ -60,7 +62,6 @@ const ProjectEdit = () => {
 					if (error.status === 401){
 						navigate('/login?reason=expired');
 					}
-					setErrors(error.response.data.errors);
 					setLoading(false);
 				}
 			);

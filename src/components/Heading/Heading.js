@@ -15,6 +15,10 @@ const Heading = (props) => {
             text: '',
             url: ''
         },
+        edit: {
+            text: '',
+            url: ''
+        },
         ...props,
     }
 
@@ -34,6 +38,14 @@ const Heading = (props) => {
                     ? <Link to={ props.new.url } className="btn solid main rounded ml5">
                         <Icon name="plus" color="#FFF" size={16} style={{ marginBottom: '-2px', marginRight: '5px' }} />
                         { props.new.text }
+                    </Link> 
+                    : null 
+                }
+                { 
+                    props.edit.url !== '' 
+                    ? <Link to={ props.edit.url } className="btn solid main rounded ml5">
+                        <Icon name="edit" color="#FFF" size={16} style={{ marginBottom: '-2px', marginRight: '5px' }} />
+                        { props.edit.text }
                     </Link> 
                     : null 
                 }

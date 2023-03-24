@@ -2,6 +2,7 @@ import { useContext, useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { api } from '../../services/api.service';
 import { LoadingContext } from '../../services/context.service';
+import { setEndpoint } from '../../services/endpoints';
 
 import Heading from '../../components/Heading/Heading';
 import Spinner from '../../components/Spinner/Spinner';
@@ -20,9 +21,16 @@ const Settings = () => {
 
 	const getUser = () => {
 		setLoading(true);
-		api.get({ endpoint: 'user/' + user_id }).then(
+		const user_id = JSON.parse(localStorage.getItem('user')).id;
+		api.get({ endpoint: setEndpoint('user', 'show', user_id) }).then(
 			response => {
 				setUser(response.data);
+				setLoading(false);
+			},
+			error => {
+				if(error.status === 401){
+					navigate('/login?reason=expired');
+				}
 				setLoading(false);
 			}
 		);
@@ -30,13 +38,16 @@ const Settings = () => {
 
 	const saveUser = () => {
 		setLoading(true);
-		api.patch({ endpoint: 'user/' + user_id }, user ).then(
+		const user_id = JSON.parse(localStorage.getItem('user')).id;
+		api.patch({ endpoint: setEndpoint('user', 'update', user_id) }, user ).then(
 			response => {
 				setLoading(false);
 				navigate('/users', { replace: true });
-			}, 
+			},
 			error => {
-				setErrors(error.response.data.errors);
+				if(error.status === 401){
+					navigate('/login?reason=expired');
+				}
 				setLoading(false);
 			}
 		);
@@ -56,7 +67,7 @@ const Settings = () => {
 
 	return (
 		<div className='App'>
-			<Heading title="Editar un usuario" back={{ text: 'Volver al listado', url: '/users' }} />
+			<Heading title="Mis datos" back={{ text: 'Volver al listado', url: '/users' }} />
 			{ loading ? <Spinner /> : 
 				<div className="form content row px15" style={{ justifyContent: 'flex-start' }}>
 					<div className="form-group col col-7">

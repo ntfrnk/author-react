@@ -35,7 +35,9 @@ const Projects = () => {
 				}
 			},
 			error => {
-				navigate('/login?reason=expired');
+				if(error.status === 401){
+					navigate('/login?reason=expired');
+				}
 				setLoading(false);
 			}
 		);
