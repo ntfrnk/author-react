@@ -1,4 +1,4 @@
-import { useState, useContext, useRef, useEffect, useImperativeHandle } from "react";
+import { useState, useContext, useRef, useEffect, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { LoadingContext } from "../../services/context.service";
 import { api } from "../../services/api.service";
@@ -19,7 +19,7 @@ const ArticleEdit = () => {
 
 	const { loading, setLoading } = useContext(LoadingContext);
 	const [article, setArticle] = useState({ id: 0, title: '', content: '<p>Cargando texto...</p>', words: 0, chars: 0});
-	const [ errors, setErrors ] = useState({title: '', content: ''});
+	const [ errors ] = useState({title: '', content: ''});
 
 	const saveArticle = (exit = false) => {
 		if (editorRef.current) {
@@ -45,7 +45,7 @@ const ArticleEdit = () => {
 		}
 	}
 
-    const getArticle = () => {
+    const getArticle = useCallback(() => {
         setLoading(true);
         api.get({endpoint: setEndpoint('article', 'show', article_id)}).then(
             response => {
@@ -62,7 +62,7 @@ const ArticleEdit = () => {
 				setLoading(false);
 			}
         );
-    }
+    });
 
 	function handleEditorChange(content, editor) {
 		setArticle({
@@ -75,7 +75,7 @@ const ArticleEdit = () => {
 	useEffect(() => {
         getArticle();
         setLoading(false);
-	}, []);
+	}, [getArticle, setLoading]);
 
     return (
         <div className="App container">

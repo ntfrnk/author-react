@@ -103,7 +103,7 @@ const Articles = () => {
 	useEffect(() => {
 		getProject();
 		getArticles();
-	}, []);
+	}, [getArticles, getProject]);
 
     return (
         <div className="App">

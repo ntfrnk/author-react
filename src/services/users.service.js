@@ -6,23 +6,23 @@ export const User = {
     },
 
     getId: () => {
-        return User.getUser().id;
+        return User.getUser()?.id;
     },
 
     getName: () => {
-        return User.getUser().name;
+        return User.getUser()?.name;
     },
 
     getLastname: () => {
-        return User.getUser().lastname;
+        return User.getUser()?.lastname;
     },
 
     getEmail: () => {
-        return User.getUser().email;
+        return User.getUser()?.email;
     },
 
     getRole: () => {
-        return User.getUser().role;
+        return User.getUser()?.role;
     }
 
 }
