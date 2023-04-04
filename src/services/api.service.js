@@ -44,10 +44,18 @@ export const api = {
                     }
                 })
                 .then(response => {
-                    resolve(response.data);
+                    if(response.data.code !== 422){
+                        resolve(response.data);
+                    } else {
+                        throw response.data;
+                    }
                 })
                 .catch(error => {
-                    reject({status: error.response.status});
+                    if(error.code === 422){
+                        reject(error);
+                    } else {
+                        reject({status: error.response.status});
+                    }
                 });
             } catch (error) {
                 reject({status: 401});

@@ -10,6 +10,10 @@ $second: #D72638;
 $second-light: lighten(#D72638, 10%);
 $second-dark: darken(#D72638, 10%);
 
+$warning: #ffce7a;
+$warning-light: lighten($warning, 10%);
+$warning-dark: darken($warning, 10%);
+
 $danger: #900;
 $danger-light: lighten($danger, 10%);
 $danger-dark: darken($danger, 10%);

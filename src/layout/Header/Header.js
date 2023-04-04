@@ -19,7 +19,7 @@ const Header = () => {
 		if(!login && location !== "/login") {
 			navigate('/login');
 		}
-	}, [login, navigate, location]);
+	}, [login]);
 
 	return (
 		<>

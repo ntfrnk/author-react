@@ -5,6 +5,11 @@ const endpoints = {
         signin: 'login'
     },
 
+    session: {
+        check: 'session/check',
+        extend: 'session/extend',
+    },
+
     user: {
         index: 'users',
         show: 'users/{id}',

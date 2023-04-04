@@ -1,4 +1,4 @@
-import { useRef, useContext, useEffect } from 'react';
+import { useRef, useContext, useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { api } from '../../services/api.service';
 import { setEndpoint } from '../../services/endpoints';
@@ -13,6 +13,7 @@ const Login = () => {
     const email = useRef(null);
     const password = useRef(null);
     const { search } = useLocation();
+    const [error, setError] = useState(false);
 
     const process = () => {
         const emailValue = email.current.value;
@@ -30,13 +31,19 @@ const Login = () => {
                         lastname: response.data.lastname,
                         email: response.data.email,
                         role: response.data.role,
+                        exp: response.data.exp,
                     };
                     localStorage.setItem('token', response.data.token);
                     localStorage.setItem('user', JSON.stringify(user));
                     setLogin(true);
                     navigate('/');
+                } else {
+                    throw response;
                 }
-            }
+            },
+			error => {
+				setError(true);
+			}
         );
     }
 
@@ -65,6 +72,11 @@ const Login = () => {
                 { reason() === 'expired' ?
                 <div className="form-group error">
                     Tu sesión se expiró por inactividad
+                </div>
+                : '' }
+                { error ?
+                <div className="form-group error">
+                    Los datos ingresados son incorrectos
                 </div>
                 : '' }
                 <div className="form-group">

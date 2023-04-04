@@ -80,6 +80,15 @@
                 background: $second-dark;
             }
         }
+
+        &.warning {
+            background: darken($warning, 30%);
+            border-color: darken($warning, 30%);
+
+            &:hover {
+                background: darken($warning-dark, 30%);
+            }
+        }
     }
 
     &.link {

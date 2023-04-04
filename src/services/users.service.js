@@ -23,6 +23,10 @@ export const User = {
 
     getRole: () => {
         return User.getUser()?.role;
+    },
+
+    getExpiration: () => {
+        return User.getUser()?.exp;
     }
 
 }

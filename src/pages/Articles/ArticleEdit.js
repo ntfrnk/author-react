@@ -75,7 +75,7 @@ const ArticleEdit = () => {
 	useEffect(() => {
         getArticle();
         setLoading(false);
-	}, [getArticle, setLoading]);
+	}, []);
 
     return (
         <div className="App container">

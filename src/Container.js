@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { LoginContext } from './services/context.service';
 
-// Components
+// Layout
 import Header from './layout/Header/Header';
 
 // Pages

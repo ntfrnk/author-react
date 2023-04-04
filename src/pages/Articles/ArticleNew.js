@@ -19,7 +19,7 @@ const ArticleNew = () => {
     const { project_id } = useParams();
 
 	const { loading, setLoading } = useContext(LoadingContext);
-	const [ errors, setErrors ] = useState({title: '', content: ''});
+	const [ errors ] = useState({title: '', content: ''});
 
 	const saveArticle = (exit = false) => {
 		if (editorRef.current) {
@@ -30,8 +30,11 @@ const ArticleNew = () => {
 				project_id: project_id
 			}
 
+			console.log(article_params);
+
 			api.post({endpoint: setEndpoint('article', 'store')}, article_params).then(
 				response => {
+					console.log(response);
 					if(exit){
 						navigate('/articles/' + project_id, { replace: true });
 					} else {
@@ -49,8 +52,20 @@ const ArticleNew = () => {
 	}
 
 	useEffect(() => {
+		api.get({endpoint: setEndpoint('session', 'check')}).then(
+			response => {
+				if(response.status === 401){
+					navigate('/login?reason=expired');
+				}
+			},
+			error => {
+				if(error.status === 401){
+					navigate('/login?reason=expired');
+				}
+			}
+		);
 		setLoading(false);
-	});
+	}, []);
 
     return (
         <div className="App container">
