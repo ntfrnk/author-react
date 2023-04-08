@@ -13,6 +13,7 @@ export const api = {
 
     get: (connectData) => {
         console.clear();
+
         const apiData = api.setApiData(connectData);
         return new Promise((resolve, reject) => {
             try {
@@ -34,7 +35,7 @@ export const api = {
     },
 
     post: (connectData, params = {}) => {
-        console.clear();
+        ////console.clear();
         const apiData = api.setApiData(connectData);
         return new Promise((resolve, reject) => {
             try {
@@ -64,7 +65,7 @@ export const api = {
     },
 
     put: (connectData, params = {}) => {
-        console.clear();
+        //console.clear();
         const apiData = api.setApiData(connectData);
         return new Promise((resolve, reject) => {
             try {
@@ -86,7 +87,7 @@ export const api = {
     },
 
     patch: (connectData, params = {}) => {
-        console.clear();
+        //console.clear();
         const apiData = api.setApiData(connectData);
         return new Promise((resolve, reject) => {
             try {
@@ -108,7 +109,7 @@ export const api = {
     },
 
     delete: (connectData) => {
-        console.clear();
+        //console.clear();
         const apiData = api.setApiData(connectData);
         return new Promise((resolve, reject) => {
             try {

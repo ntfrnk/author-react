@@ -31,6 +31,7 @@ const ProjectNew = () => {
 			}
 			api.post({ endpoint: setEndpoint('project', 'store')}, project_params).then(
 				response => {
+					console.log(response);
 					if(exit){
 						navigate('/', { replace: true });
 					} else {
@@ -40,6 +41,9 @@ const ProjectNew = () => {
 				error => {
 					if(error.status === 401){
 						navigate('/login?reason=expired');
+					}
+					if(error.status === 422){
+						console.log(error);
 					}
 					setLoading(false);
 				}
