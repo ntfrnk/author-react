@@ -12,7 +12,7 @@ export const api = {
     },
 
     get: (connectData) => {
-        console.clear();
+        //console.clear();
 
         const apiData = api.setApiData(connectData);
         return new Promise((resolve, reject) => {
@@ -35,7 +35,7 @@ export const api = {
     },
 
     post: (connectData, params = {}) => {
-        ////console.clear();
+        //console.clear();
         const apiData = api.setApiData(connectData);
         return new Promise((resolve, reject) => {
             try {
@@ -45,6 +45,8 @@ export const api = {
                     }
                 })
                 .then(response => {
+                    console.log('resp');
+                    console.log(response);
                     if(response.data.code !== 422){
                         resolve(response.data);
                     } else {
@@ -52,6 +54,8 @@ export const api = {
                     }
                 })
                 .catch(error => {
+                    console.log('catch');
+                    console.log(error);
                     if(error.code === 422){
                         reject(error);
                     } else {
@@ -59,6 +63,8 @@ export const api = {
                     }
                 });
             } catch (error) {
+                console.log('catch2');
+                console.log(error);
                 reject({status: 401});
             };
         });

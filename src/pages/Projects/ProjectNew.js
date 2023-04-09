@@ -16,6 +16,7 @@ import './Projects.scss';
 const ProjectNew = () => {
 
 	const editorRef = useRef(null);
+	const nameRef = useRef(null);
 	const navigate = useNavigate();
 
 	const { loading, setLoading } = useContext(LoadingContext);
@@ -25,12 +26,13 @@ const ProjectNew = () => {
 	const saveProject = (exit = false) => {
 		if (editorRef.current) {
 			let project_params = {
-				...project,
+				name: nameRef.current.value,
 				description: editorRef.current.getContent(),
 				user_id: User.getId()
 			}
 			api.post({ endpoint: setEndpoint('project', 'store')}, project_params).then(
 				response => {
+					console.log('resp');
 					console.log(response);
 					if(exit){
 						navigate('/', { replace: true });
@@ -39,6 +41,7 @@ const ProjectNew = () => {
 					}
 				},
 				error => {
+					console.log('error');
 					if(error.status === 401){
 						navigate('/login?reason=expired');
 					}
@@ -51,14 +54,6 @@ const ProjectNew = () => {
 		}
 	}
 
-	const setData = (event) => {
-		console.log(event.target);
-        setProject({
-            ...project,
-            [event.target.name] : event.target.value
-        });
-    }
-
 	useEffect(() => {
 		setLoading(false);
 	});
@@ -70,7 +65,7 @@ const ProjectNew = () => {
 			<div className="form content">
 				<div className="form-group">
 					<label>Nombre del proyecto:</label>
-					<input type="text" name="name" onChange={setData} placeholder="Escribe aquí el nombre del proyecto" />
+					<input type="text" name="name" ref={nameRef} placeholder="Escribe aquí el nombre del proyecto" />
 					{ errors.name ? <span className="error">{ errors.name }</span> : null }
 				</div>
 				<div className="form-group">
